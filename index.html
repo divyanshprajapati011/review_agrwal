@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Agrawal Dental And Oral Care Bhopal</title>
+<style>
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: url('background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #020202;
+  padding: 40px 20px;
+}
+.header { text-align: center; margin-bottom: 20px; }
+.header img { width: 80px; display: block; margin: 0 auto 10px; }
+.header h1 { font-size: 26px; margin: 0; }
+.overlay {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+h2 { font-size: 22px; margin-bottom: 15px; }
+p { font-size: 18px; line-height: 1.5; }
+button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #0b5fff;
+  color: white;
+  transition: background-color 0.2s;
+}
+button:hover { background-color: #0846b7; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="logo.png" alt="Rambo Plumbing Logo">
+  <h1>⭐ Agrawal Dental And Oral Care Bhopal ⭐ </h1>
+</div>
+
+<div id="page1" class="overlay">
+  <h2>About Our Company</h2>
+  <p>
+    At <strong>Agrawal Dental And Oral Care Bhopal</strong>,Trusted dental clinic in Bhopal offering painless and professional dental care. Services include root canal, teeth cleaning, whitening, fillings, braces, and family dentistry. Our friendly staff and modern clinic ensure a safe, comfortable, and effective treatment experience.
+  </p>
+</div>
+<button id="nextBtn1">➡️ Next</button>
+
+<div id="page2" class="overlay hidden">
+  <h2>Customer Review</h2>
+  <p id="reviewText">Loading review...</p>
+</div>
+<button id="nextBtn2" class="hidden">➡️ Go & Paste There...</button>
+
+<script>
+const page1 = document.getElementById('page1');
+const page2 = document.getElementById('page2');
+const reviewText = document.getElementById('reviewText');
+const nextBtn1 = document.getElementById('nextBtn1');
+const nextBtn2 = document.getElementById('nextBtn2');
+let review = "";
+
+// --- Define reviews directly in JS ---
+
+const reviews = [
+  // ------------------- 60 Fully English -------------------
+  "Excellent service and very caring staff! Highly recommend Agrawal Dental And Oral Care in Bhopal.",
+  "The dentists here are very professional and make you feel comfortable throughout the treatment.",
+  "Clean clinic, friendly staff, and quick appointments. Very satisfied with my dental care.",
+  "I had a root canal done here and it was completely painless. Great experience!",
+  "Highly skilled dentists who explain everything clearly. Loved my visit.",
+  "Affordable rates and excellent service. My go-to dental clinic in Bhopal.",
+  "The clinic is very hygienic and the staff is polite. Recommended for all dental treatments.",
+  "I feel very safe getting my treatments done here. Professional and caring team.",
+  "Quick appointment scheduling and very professional treatment. Totally satisfied.",
+  "Friendly staff and painless procedures. I always recommend Agrawal Dental to my friends.",
+  "Amazing dental care experience! The staff is very attentive and friendly.",
+  "I had a teeth cleaning session and it was thorough and painless.",
+  "The clinic maintains excellent hygiene standards. Very impressed!",
+  "I highly recommend this clinic for all dental procedures in Bhopal.",
+  "Staff is cooperative and doctors explain everything clearly. Very professional.",
+  "Best dental clinic in Bhopal! My entire family visits here.",
+  "Painless treatment and friendly environment. Loved my experience.",
+  "Affordable and top-notch dental care. I’m very satisfied.",
+  "Very professional staff and timely appointments. Highly recommended.",
+  "The dentist is very gentle and explains each step before treatment.",
+  "Amazing root canal treatment with zero pain. Thank you, team!",
+  "The clinic is clean and welcoming. Staff is very polite.",
+  "Great service, hygienic environment, and professional doctors.",
+  "I always feel safe and cared for during my dental visits here.",
+  "Highly recommend for family dental care in Bhopal.",
+  "Staff is friendly and attentive. Treatment was smooth and painless.",
+  "Best experience ever! The clinic is well-maintained and professional.",
+  "Very satisfied with the dental check-up and cleaning.",
+  "Affordable and excellent service. Highly recommend Agrawal Dental.",
+  "The dentist is very skilled and ensures a comfortable experience.",
+  "Clinic staff is courteous and explains everything before treatment.",
+  "I had a dental filling done and it was painless and quick.",
+  "Professional doctors, clean clinic, and caring staff.",
+  "Very happy with the treatment! Totally recommend this clinic.",
+  "Friendly environment and thorough treatment. Loved the service.",
+  "Excellent dental care with professional staff. Very satisfied.",
+  "The team is cooperative and makes every visit comfortable.",
+  "Painless procedures with expert guidance. Highly recommended.",
+  "I trust this clinic for all my family’s dental needs.",
+  "Clean, hygienic, and professional clinic. Very impressed.",
+  "The staff is welcoming and very helpful. Great dental care!",
+  "Highly skilled dentist and friendly staff. A great experience.",
+  "Very satisfied with the timely and professional treatment.",
+  "The clinic is neat and maintains high hygiene standards.",
+  "Affordable, friendly, and expert dental care. Love this clinic.",
+  "The dentist is very gentle and makes you feel at ease.",
+  "I always get professional and painless treatment here.",
+  "Excellent hygiene, professional staff, and caring environment.",
+  "Friendly staff who provide thorough dental treatment.",
+  "Best clinic for all dental procedures in Bhopal. Highly recommended.",
+  "The dentist is very skilled and ensures a smooth experience.",
+  "Quick appointments, painless treatment, and professional staff.",
+  "Staff is polite and helpful. Treatment was very comfortable.",
+  "Amazing experience! I highly recommend this dental clinic.",
+  "The clinic maintains cleanliness and provides excellent care.",
+  "Professional and friendly staff. Very satisfied with the service.",
+  "Affordable and top-quality dental treatment in Bhopal.",
+  "I had a teeth whitening procedure done. Amazing results!",
+  "Great clinic, caring staff, and professional dental care.",
+  "The dentist explains everything and makes the treatment painless.",
+  "Very happy with the dental services here. Highly recommend.",
+  "Clean and hygienic environment with skilled professionals.",
+  "Friendly and cooperative staff. Treatment was smooth and painless.",
+  "Best dental clinic in Bhopal for all your family’s needs.",
+  "Professional and attentive doctors. Excellent service!",
+  "The staff makes every visit comfortable and stress-free.",
+  "Affordable dental services without compromising on quality.",
+
+  // ------------------- 60 Hinglish -------------------
+  "Clinic ka environment bahut hi clean aur friendly hai. Treatment bhi painless hai.",
+  "Root canal yahan completely painless hua, very satisfied!",
+  "Staff bahut cooperative hai aur dentist bohot skilled hai. Loved my visit.",
+  "Affordable rates aur excellent service. Go-to dental clinic in Bhopal.",
+  "Clinic ka hygiene top notch hai, staff bhi polite hai. Recommended!",
+  "Mujhe yahan ka treatment bohot acha laga, very safe feeling.",
+  "Quick appointment aur professional treatment. Totally satisfied.",
+  "Friendly staff and painless procedures. Main hamesha recommend karta hoon friends ko.",
+  "Teeth cleaning session bohot thorough aur painless tha. Highly recommend!",
+  "Doctors sab kuch clearly explain karte hai, treatment easy ho gaya.",
+  "Family ke liye best dental clinic in Bhopal. Staff aur doctors dono excellent.",
+  "Affordable aur top quality dental care. Main bohot happy hoon.",
+  "Painless filling aur timely treatment. Clinic staff bohot friendly hai.",
+  "Clinic bohot clean aur welcoming hai, staff helpful hai.",
+  "Highly recommend for all dental treatments in Bhopal.",
+  "Mujhe yahan ka environment bohot comfortable laga. Treatment smooth raha.",
+  "Professional aur caring staff. Very satisfied with my visit.",
+  "Painless procedures aur expert guidance. Loved it!",
+  "Teeth whitening ki service bohot achhi hai, result amazing hai!",
+  "Mujhe yahan ka root canal treatment bohot acha laga, zero pain.",
+  "Clinic staff polite aur cooperative hai. Treatment comfortable raha.",
+  "Highly skilled dentist aur friendly staff. Great experience!",
+  "Affordable dental care aur professional service. Recommend karta hoon!",
+  "Mujhe hamesha yahan visit karna safe aur comfortable lagta hai.",
+  "Quick appointments aur painless treatment. Very satisfied!",
+  "Friendly aur cooperative staff, treatment smooth aur easy tha.",
+  "Best dental clinic in Bhopal for all family needs. Highly recommended.",
+  "Professional doctors aur staff bohot polite hai. Excellent service.",
+  "Tooth extraction completely painless, great experience!",
+  "Clean aur hygienic clinic, professional aur caring staff.",
+  "Friendly environment aur expert dental care. Loved my visit.",
+  "Professional, hygienic, aur caring dental clinic. Highly recommended.",
+  "Painless treatment aur skilled staff. Very satisfied!",
+  "Mujhe yahan ka check-up aur cleaning bohot acha laga. Recommended!",
+  "Quick appointments, expert care aur friendly staff. Loved it!",
+  "Affordable aur top-quality dental care in Bhopal.",
+  "The dentist is very gentle aur procedure bilkul painless tha.",
+  "Clinic staff friendly aur helpful hai. Treatment comfortable raha.",
+  "Highly recommend this clinic for family dental care in Bhopal.",
+  "Affordable, hygienic, aur professional dental care. Loved it!",
+  "Professional staff aur skilled dentists. Excellent experience.",
+  "Friendly aur attentive staff, painless procedures. Highly recommend!",
+  "Clean, welcoming aur professional dental clinic in Bhopal.",
+  "Painless procedures with expert guidance. Very satisfied!",
+  "Mujhe yahan ka treatment bohot acha laga. Staff aur doctors cooperative hai.",
+  "Professional, hygienic aur friendly environment. Loved my visit.",
+  "Highly recommend this clinic for all dental treatments.",
+  "Friendly staff aur expert care. Very happy with my visit.",
+  "Clean clinic with skilled dentists aur professional staff.",
+  "Affordable aur high-quality dental treatment. Recommended!",
+  "The dentist ensures comfortable aur stress-free experience.",
+  "Clinic ka staff bahut polite aur helpful hai, treatment smooth raha.",
+  "Mujhe yahan ki service bohot acchi lagi, highly recommend!",
+  "Root canal aur cleaning bilkul painless aur professional hua.",
+  "Family aur friends ke liye best dental clinic in Bhopal.",
+  "Doctors aur staff dono professional aur friendly hai.",
+  "Treatment ka experience bohot acha aur comfortable raha.",
+  "Clinic ka environment clean, hygienic aur welcoming hai.",
+  "Highly recommend this dental clinic for all treatments.",
+
+  // ------------------- 30 Pure Hindi -------------------
+  "यह क्लिनिक बहुत साफ-सुथरा है और स्टाफ बहुत ही सहयोगी है।",
+  "मुझे यहाँ का दंत उपचार बहुत अच्छा लगा।",
+  "डॉक्टर बहुत ही कुशल हैं और हर चीज़ विस्तार से समझाते हैं।",
+  "मुझे यहाँ का अनुभव बेहद संतोषजनक लगा।",
+  "स्टाफ बहुत ही मित्रवत और मददगार है।",
+  "यहाँ का Root Canal बिलकुल painless था।",
+  "सभी दंत प्रक्रियाएँ सुविधाजनक और आरामदायक हैं।",
+  "मुझे अपने परिवार के लिए यह क्लिनिक बहुत अच्छा लगा।",
+  "क्लिनिक का वातावरण सुरक्षित और स्वच्छ है।",
+  "मैं इस क्लिनिक को सभी को सुझाव दूँगा।",
+  "यहाँ का दंत उपचार आधुनिक और पेशेवर है।",
+  "स्टाफ हर समय सहायक और मित्रवत रहता है।",
+  "क्लिनिक में सफाई और स्वच्छता का पूरा ध्यान रखा जाता है।",
+  "डॉक्टर हर उपचार को बिना दर्द के पूरा करते हैं।",
+  "मुझे यहाँ का अनुभव बहुत ही आरामदायक और संतोषजनक लगा।",
+  "यह क्लिनिक सभी प्रकार के दंत उपचार के लिए उत्तम है।",
+  "स्टाफ और डॉक्टर दोनों पेशेवर और मित्रवत हैं।",
+  "मुझे यहाँ का एक्सट्रैक्शन और रूट कैनाल बहुत अच्छा लगा।",
+  "क्लिनिक में टाइम पर अपॉइंटमेंट मिलता है।",
+  "डेंटल क्लिनिक का माहौल सुरक्षित और साफ-सुथरा है।",
+  "मुझे यहाँ की टीथ क्लीनिंग और चेकअप बहुत पसंद आया।",
+  "स्टाफ बहुत ही सहयोगी और व्यवहार में अच्छा है।",
+  "डॉक्टर हर कदम पर सबकुछ स्पष्ट रूप से समझाते हैं।",
+  "यहाँ का वातावरण परिवार के लिए उपयुक्त और सुरक्षित है।",
+  "मुझे यहाँ का इलाज हमेशा सुविधाजनक और आरामदायक लगता है।",
+  "क्लिनिक की सेवा और पेशेवर टीम बेहद सराहनीय है।",
+  "मुझे यहाँ का अनुभव बहुत ही सकारात्मक और संतोषजनक लगा।",
+  "यहाँ की दंत चिकित्सा सेवाएँ उत्कृष्ट और पेशेवर हैं।",
+  "मैं इस क्लिनिक में भविष्य में भी उपचार करवाऊँगा।",
+  "डेंटल क्लिनिक में हर समय मरीजों की सुविधा और आराम का ध्यान रखा जाता है।"
+];
+
+nextBtn1.addEventListener('click', () => {
+  nextBtn1.style.display = "none";
+  page1.classList.add('hidden');
+  page2.classList.remove('hidden');
+  nextBtn2.classList.remove('hidden');
+  loadReview();
+});
+
+nextBtn2.addEventListener('click', copyAndRedirect);
+
+function loadReview() {
+  if(reviews.length === 0){
+    reviewText.textContent = "No reviews available!";
+    return;
+  }
+  const randomIndex = Math.floor(Math.random() * reviews.length);
+  review = reviews[randomIndex];
+  reviewText.textContent = review;
+}
+
+function copyAndRedirect() {
+  if(!review){
+    alert("Review not loaded yet!");
+    return;
+  }
+  navigator.clipboard.writeText(review).then(() => {
+    window.open("https://g.page/r/CT3-lnP1I6dfEAE/review", "_blank");
+  }).catch(err => {
+    alert("Copy failed. Redirecting anyway...");
+    window.open("https://g.page/r/CT3-lnP1I6dfEAE/review", "_blank");
+  });
+}
+</script>
+
+</body>
+</html>
